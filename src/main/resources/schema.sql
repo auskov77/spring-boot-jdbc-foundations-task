@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS customer;
+
+CREATE TABLE customer(
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(256),
+    email VARCHAR(256),
+    animal VARCHAR(256)
+);
