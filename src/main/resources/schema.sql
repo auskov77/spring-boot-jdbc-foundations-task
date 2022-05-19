@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS customers;
 
-CREATE TABLE customer(
+CREATE TABLE customers(
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(256),
     email VARCHAR(256),
