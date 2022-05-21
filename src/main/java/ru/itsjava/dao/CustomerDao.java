@@ -12,4 +12,5 @@ public interface CustomerDao {
 
     void delete(Customer customer);
 
+    Customer findById(long id);
 }

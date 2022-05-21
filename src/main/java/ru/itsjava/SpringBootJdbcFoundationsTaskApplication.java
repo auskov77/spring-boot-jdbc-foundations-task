@@ -36,6 +36,9 @@ public class SpringBootJdbcFoundationsTaskApplication {
 		customerDao.delete(newCustomer);
 		System.out.println("customerDao.count() = " + customerDao.count());
 
+		// произвести поиск строки по id в таблице Customers
+		System.out.println("customerDao.findById(1L) = " + customerDao.findById(1L));
+
 		Console.main(args);
 	}
 
