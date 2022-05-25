@@ -31,9 +31,7 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public void updateCustomer(Customer customer) {
         Map<String, Object> params = Map.of("id", customer.getId(), "name", customer.getName(), "email", customer.getEmail(), "animal", customer.getAnimal());
-        jdbcOperations.update("update customers set name = :name where id = :id", params);
-        jdbcOperations.update("update customers set email = :email where id = :id", params);
-        jdbcOperations.update("update customers set animal = :animal where id = :id", params);
+        jdbcOperations.update("update customers set name = :name, email = :email, animal = :animal where id = :id", params);
     }
 
     @Override
