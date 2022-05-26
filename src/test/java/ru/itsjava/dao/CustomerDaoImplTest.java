@@ -1,5 +1,6 @@
 package ru.itsjava.dao;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
@@ -8,6 +9,7 @@ import ru.itsjava.domain.Customer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("Тест методов класса CustomerDao")
 @JdbcTest
 @Import(CustomerDaoImpl.class)
 public class CustomerDaoImplTest {
@@ -20,12 +22,14 @@ public class CustomerDaoImplTest {
     @Autowired
     private CustomerDao customerDao;
 
+    @DisplayName("Тест метода count")
     @Test
     public void shouldHaveCorrectCount() {
         int actualCustomerCount = customerDao.count();
         assertEquals(2, actualCustomerCount);
     }
 
+    @DisplayName("Тест метода insert")
     @Test
     public void shouldHaveCorrectMethodInsert() {
         Customer expectedCustomer = new Customer(NEW_ID,DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL);
@@ -36,6 +40,7 @@ public class CustomerDaoImplTest {
         assertEquals(customerDaoById, expectedCustomer);
     }
 
+    @DisplayName("Тест метода updateCustomer")
     @Test
     public void shouldHaveCorrectMethodUpdateCustomer() {
         Customer expectedCustomer = new Customer(FIRST_ID, DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL);
@@ -45,6 +50,7 @@ public class CustomerDaoImplTest {
         assertEquals(actualCustomer, expectedCustomer);
     }
 
+    @DisplayName("Тест метода delete")
     @Test
     public void shouldHaveCorrectMethodDelete() {
         Customer deleteCustomer = customerDao.findById(FIRST_ID);
@@ -53,6 +59,7 @@ public class CustomerDaoImplTest {
         assertEquals(customerDao.count(), 1);
     }
 
+    @DisplayName("Тест метода findById")
     @Test
     public void shouldHaveCorrectMethodFindById() {
         Customer expectedCustomer = customerDao.findById(FIRST_ID);
