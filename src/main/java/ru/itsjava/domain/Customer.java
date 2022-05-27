@@ -12,4 +12,5 @@ public class Customer {
     private final String name;
     private final String email;
     private final String animal;
+    private final Pet pet;
 }

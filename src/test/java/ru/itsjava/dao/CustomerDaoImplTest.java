@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import ru.itsjava.domain.Customer;
+import ru.itsjava.domain.Pet;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Тест методов класса CustomerDao")
@@ -14,10 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Import(CustomerDaoImpl.class)
 public class CustomerDaoImplTest {
     private static final String DEFAULT_NAME = "Запашный";
-    private static final String DEFAULT_EMAIL= "zapashniy@mail.ru";
-    private static final String DEFAULT_ANIMAL= "Tiger";
+    private static final String DEFAULT_EMAIL = "zapashniy@mail.ru";
+    private static final String DEFAULT_ANIMAL = "Tiger";
     private static final long FIRST_ID = 1L;
-    private static final long NEW_ID = 3L;
+    private static final long SECOND_ID = 2L;
+//    private static final long NEW_ID = 3L;
+    public static final Pet DEFAULT_PET_FIRST_ID = new Pet(1L, "yard");
+    public static final Pet DEFAULT_PET_SECOND_ID = new Pet(2L, "fighting");
 
     @Autowired
     private CustomerDao customerDao;
@@ -32,21 +37,23 @@ public class CustomerDaoImplTest {
     @DisplayName("Тест метода insert")
     @Test
     public void shouldHaveCorrectMethodInsert() {
-        Customer expectedCustomer = new Customer(NEW_ID,DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL);
-        customerDao.insert(expectedCustomer);
+        Customer expectedCustomer = new Customer(DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL, DEFAULT_PET_FIRST_ID);
+        long idFromDB = customerDao.insert(expectedCustomer);
+        System.out.println(idFromDB);
+        Customer customerDaoById = customerDao.findById(idFromDB);
 
-        Customer customerDaoById = customerDao.findById(NEW_ID);
-
-        assertEquals(customerDaoById, expectedCustomer);
+        assertAll(() -> assertEquals(customerDaoById.getName(), expectedCustomer.getName()),
+                () -> assertEquals(customerDaoById.getEmail(), expectedCustomer.getEmail()),
+                () -> assertEquals(customerDaoById.getAnimal(), expectedCustomer.getAnimal()));
     }
 
     @DisplayName("Тест метода updateCustomer")
     @Test
     public void shouldHaveCorrectMethodUpdateCustomer() {
-        Customer expectedCustomer = new Customer(FIRST_ID, DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL);
+        Customer expectedCustomer = new Customer(SECOND_ID, DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL, DEFAULT_PET_SECOND_ID);
         customerDao.updateCustomer(expectedCustomer);
 
-        Customer actualCustomer = customerDao.findById(FIRST_ID);
+        Customer actualCustomer = customerDao.findById(SECOND_ID);
         assertEquals(actualCustomer, expectedCustomer);
     }
 
@@ -67,5 +74,6 @@ public class CustomerDaoImplTest {
         assertEquals(expectedCustomer.getName(), "Ivanov");
         assertEquals(expectedCustomer.getEmail(), "ivanov1@yandex.ru");
         assertEquals(expectedCustomer.getAnimal(), "cat");
+        assertEquals(expectedCustomer.getPet(), DEFAULT_PET_FIRST_ID);
     }
 }

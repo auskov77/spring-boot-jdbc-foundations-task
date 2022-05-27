@@ -6,7 +6,7 @@ public interface CustomerDao {
 
     int count();
 
-    void insert(Customer customer);
+    long insert(Customer customer);
 
     void updateCustomer(Customer customer);
 
