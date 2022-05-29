@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Import;
 import ru.itsjava.domain.Customer;
 import ru.itsjava.domain.Pet;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,7 +22,6 @@ public class CustomerDaoImplTest {
     private static final String DEFAULT_ANIMAL = "Tiger";
     private static final long FIRST_ID = 1L;
     private static final long SECOND_ID = 2L;
-//    private static final long NEW_ID = 3L;
     public static final Pet DEFAULT_PET_FIRST_ID = new Pet(1L, "yard");
     public static final Pet DEFAULT_PET_SECOND_ID = new Pet(2L, "fighting");
 
@@ -75,5 +76,12 @@ public class CustomerDaoImplTest {
         assertEquals(expectedCustomer.getEmail(), "ivanov1@yandex.ru");
         assertEquals(expectedCustomer.getAnimal(), "cat");
         assertEquals(expectedCustomer.getPet(), DEFAULT_PET_FIRST_ID);
+    }
+
+    @DisplayName("Тест метода findAll")
+    @Test
+    public void shouldHaveCorrectMethodFindAll(){
+        List<Customer> listCustomers = customerDao.findAll();
+        assertEquals(2, listCustomers.size());
     }
 }
