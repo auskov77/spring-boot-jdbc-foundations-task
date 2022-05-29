@@ -13,6 +13,7 @@ import ru.itsjava.domain.Pet;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("ALL")
@@ -51,16 +52,22 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Customer findById(long id) {
         Map<String, Object> params = Map.of("id", id);
-        return jdbcOperations.queryForObject("select c.id, c.name, c.email, c.animal, p.id, p.breed from customers c, pets p where c.id = :id " +
+        return jdbcOperations.queryForObject("select c.id as CID, c.name, c.email, c.animal, p.id as PID, p.breed from customers c, pets p where c.id = :id " +
                 "and c.pet_id = p.id", params, new CustomerMapper());
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return jdbcOperations.query("select c.id as CID, c.name, c.email, c.animal, p.id as PID, p.breed from customers c, pets p " +
+                "where c.pet_id = p.id", new CustomerMapper());
     }
 
     private static class CustomerMapper implements RowMapper<Customer>{
 
         @Override
         public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Customer(rs.getLong("id"), rs.getString("name"), rs.getString("email"), rs.getString("animal"),
-                    new Pet(rs.getLong("id"), rs.getString("breed")));
+            return new Customer(rs.getLong("CID"), rs.getString("name"), rs.getString("email"), rs.getString("animal"),
+                    new Pet(rs.getLong("PID"), rs.getString("breed")));
         }
     }
 }

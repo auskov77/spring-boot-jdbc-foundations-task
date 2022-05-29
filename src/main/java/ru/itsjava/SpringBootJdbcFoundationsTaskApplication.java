@@ -1,18 +1,20 @@
 package ru.itsjava;
 
+import org.h2.tools.Console;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import ru.itsjava.domain.Customer;
-import ru.itsjava.domain.Pet;
-import ru.itsjava.services.CustomerService;
+import ru.itsjava.services.AppService;
+
+import java.sql.SQLException;
 
 @SpringBootApplication
 public class SpringBootJdbcFoundationsTaskApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
+//		SpringApplication.run(SpringBootJdbcFoundationsTaskApplication.class, args);
 		ApplicationContext context = SpringApplication.run(SpringBootJdbcFoundationsTaskApplication.class, args);
-		context.getBean(CustomerService.class).insert(new Customer("Uskova", "uskova@yandex.ru", "dog", new Pet(4L, "mini")));
+		context.getBean(AppService.class).start();
 
 //		Console.main(args);
 	}
