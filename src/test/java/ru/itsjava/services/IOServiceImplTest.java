@@ -1,4 +1,4 @@
-package ru.itsjava.service;
+package ru.itsjava.services;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class IOServiceImplTest {
 
     @Configuration
-    static class MyConfiguration{
+    static class ConfigurationIOServiceImpl {
         public static final String PRIVET = "privet";
         private final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(PRIVET.getBytes());
 
@@ -34,13 +34,6 @@ class IOServiceImplTest {
     @DisplayName("корректная работа метода input")
     @Test
     public void shouldHaveCorrectMethodInput(){
-        assertEquals(MyConfiguration.PRIVET, ioService.input());
+        assertEquals(ConfigurationIOServiceImpl.PRIVET, ioService.input());
     }
-
-//    @DisplayName("корретная работа метода inputInt")
-//    @Test
-//    public void shouldHaveCorrectMethodInputInt(){
-//        int menuNum = ioService.inputInt();
-//        assertEquals(1, menuNum);
-//    }
 }
