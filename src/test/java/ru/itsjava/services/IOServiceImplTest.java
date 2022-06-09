@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.itsjava.services.IOService;
-import ru.itsjava.services.IOServiceImpl;
 
 import java.io.ByteArrayInputStream;
 
