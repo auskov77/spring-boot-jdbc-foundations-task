@@ -29,7 +29,9 @@ public class AppServiceImplTest {
 
     @Configuration
     static class ConfigurationAppServiceImpl {
-        public static final String PRIVET = "1";
+//        public static final String PRIVET = "privet";
+        public static final int MENUNUM = 1;
+        private final ByteArrayOutputStream byteArrayOutputStreamMenuNum = new ByteArrayOutputStream(MENUNUM);
 
         @Bean
         public CustomerService customerService() {
@@ -41,7 +43,7 @@ public class AppServiceImplTest {
         @Bean
         public IOService ioService() {
             IOService mockIOService = Mockito.mock(IOService.class);
-            when(mockIOService.input()).thenReturn(PRIVET);
+            when(mockIOService.input()).thenReturn(String.valueOf(MENUNUM));
             return mockIOService;
         }
 
@@ -64,7 +66,8 @@ public class AppServiceImplTest {
 //    @DisplayName("Тест метода start")
 //    @Test
 //    void shouldHaveCorrectMethodStart() {
-//
+//        appService.start();
+//        assertEquals(ConfigurationAppServiceImpl.MENUNUM, "Список всех владельцев животных [Customer(id=1, name=Запашный, email=zapashniy@mail.ru, animal=Tiger, pet=Pet(id=1, breed=yard))]\r\n");
 //    }
 
     @DisplayName("Тест метода printAllCustomers")
