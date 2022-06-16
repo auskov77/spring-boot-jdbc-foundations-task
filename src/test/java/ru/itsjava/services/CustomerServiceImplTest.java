@@ -25,7 +25,7 @@ class CustomerServiceImplTest {
     private static final String DEFAULT_EMAIL = "zapashniy@mail.ru";
     private static final String DEFAULT_ANIMAL = "Tiger";
     public static final Pet DEFAULT_PET = new Pet(1L, "yard");
-    public static final Customer DEFAULT_CUSTOMER = new Customer(1L, DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL, DEFAULT_PET);
+    public static final Customer DEFAULT_CUSTOMER = new Customer(0L, DEFAULT_NAME, DEFAULT_EMAIL, DEFAULT_ANIMAL, DEFAULT_PET);
 
     @Configuration
     static class ConfigurationCustomerServiceImpl {
@@ -53,7 +53,7 @@ class CustomerServiceImplTest {
         System.setOut(new PrintStream(outputStream));
         customerService.insert(DEFAULT_CUSTOMER);
 
-        assertEquals("ID нового владельца животного = " + DEFAULT_CUSTOMER.getId(), outputStream.toString());
+        assertEquals("ID нового владельца животного = " + DEFAULT_CUSTOMER.getId() + "\r\n", outputStream.toString());
     }
 
     @DisplayName("Тест метода findAll")
