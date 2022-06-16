@@ -11,6 +11,8 @@ import ru.itsjava.dao.CustomerDao;
 import ru.itsjava.domain.Customer;
 import ru.itsjava.domain.Pet;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,13 +49,11 @@ class CustomerServiceImplTest {
     @DisplayName("Тест метода insert")
     @Test
     public void shouldHaveCorrectMethodInsert() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
         customerService.insert(DEFAULT_CUSTOMER);
-        Customer expectedCustomer = new Customer("Vtoroy", "vtoroy@mail.ru", "maus", DEFAULT_PET);
-        customerService.insert(expectedCustomer);
-        assertAll(()->assertEquals(DEFAULT_CUSTOMER.getName(), DEFAULT_NAME),
-                ()->assertEquals(DEFAULT_CUSTOMER.getEmail(), DEFAULT_EMAIL),
-                ()->assertEquals(DEFAULT_CUSTOMER.getAnimal(), DEFAULT_ANIMAL),
-                ()->assertEquals(DEFAULT_CUSTOMER.getId(), 1));
+
+        assertEquals("ID нового владельца животного = " + DEFAULT_CUSTOMER.getId(), outputStream.toString());
     }
 
     @DisplayName("Тест метода findAll")
